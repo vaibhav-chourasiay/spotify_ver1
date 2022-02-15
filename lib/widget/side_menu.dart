@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/src/provider.dart';
 import 'package:spotifyver1/themechanger.dart';
+import 'package:provider/provider.dart';
 
 import 'widget.dart';
 
@@ -14,7 +14,7 @@ class _SideMenuState extends State<SideMenu> {
   Widget build(BuildContext context) {
     return Container(
       width: 250.0,
-      color: Colors.black,
+      color: Theme.of(context).colorScheme.primary,
       height: double.maxFinite,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,10 +37,12 @@ class _SideMenuState extends State<SideMenu> {
           const SizedBox(
             height: 20.0,
           ),
-          MenuButton(context, Icons.home, "Home", () {}),
-          MenuButton(context, Icons.search, "Search", () {}),
-          MenuButton(context, Icons.audiotrack, "audio", () {}),
+          MenuButton(icondata: Icons.home, title: "Home", onpressed: () {}),
+          MenuButton(icondata: Icons.search, title: "Search", onpressed: () {}),
+          MenuButton(
+              icondata: Icons.audiotrack, title: "audio", onpressed: () {}),
           Switch(
+            activeColor: Colors.green,
             value: !(context.watch<ThemeChanger>().darktheme),
             onChanged: (value) {
               context.read<ThemeChanger>().changetheme();
@@ -56,19 +58,38 @@ class _SideMenuState extends State<SideMenu> {
   }
 }
 
-Widget MenuButton(context, icondata, title, onpressed) {
-  return Column(
-    children: [
-      ListTile(
-        dense: true,
-        title: Text(
-          title,
-          style: Theme.of(context).textTheme.bodyText1,
+class MenuButton extends StatefulWidget {
+  final icondata;
+  final title;
+  Function onpressed;
+
+  MenuButton({Key? key, this.icondata, this.title, required this.onpressed})
+      : super(key: key);
+
+  @override
+  _MenuButtonState createState() => _MenuButtonState();
+}
+
+class _MenuButtonState extends State<MenuButton> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListTile(
+          dense: true,
+          title: Text(
+            widget.title,
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+          leading: Icon(widget.icondata),
+          onTap: widget.onpressed(),
         ),
-        leading: Icon(icondata),
-        onTap: onpressed,
-      ),
-      Divider(),
-    ],
-  );
+        Divider(
+          color: context.watch<ThemeChanger>().darktheme
+              ? Colors.white
+              : Colors.black45,
+        ),
+      ],
+    );
+  }
 }
