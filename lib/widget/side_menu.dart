@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
+import 'package:spotifyver1/themechanger.dart';
 
 import 'widget.dart';
 
@@ -38,6 +40,12 @@ class _SideMenuState extends State<SideMenu> {
           MenuButton(context, Icons.home, "Home", () {}),
           MenuButton(context, Icons.search, "Search", () {}),
           MenuButton(context, Icons.audiotrack, "audio", () {}),
+          Switch(
+            value: !(context.watch<ThemeChanger>().darktheme),
+            onChanged: (value) {
+              context.read<ThemeChanger>().changetheme();
+            },
+          ),
           const SizedBox(
             height: 15.0,
           ),

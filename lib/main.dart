@@ -1,12 +1,15 @@
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:spotifyver1/theme.dart';
+import 'package:spotifyver1/themechanger.dart';
 import 'package:spotifyver1/widget/widget.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => ThemeChanger(), child: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -16,12 +19,14 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Spotify ver1",
-      themeMode: ThemeMode.dark,
-      theme: AppTheme.dartTheme,
+      themeMode: context.watch<ThemeChanger>().darktheme
+          ? ThemeMode.dark
+          : ThemeMode.light,
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.dartTheme,
       home: HomePage(),
     );
   }
