@@ -1,15 +1,16 @@
-import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:spotifyver1/selectdsong.dart';
 import 'package:spotifyver1/theme.dart';
 import 'package:spotifyver1/themechanger.dart';
 import 'package:spotifyver1/widget/widget.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
-  runApp(ChangeNotifierProvider(
-      create: (context) => ThemeChanger(), child: MyApp()));
+  runApp(MultiProvider(providers: [
+    ListenableProvider<ThemeChanger>(create: (context) => ThemeChanger()),
+    ListenableProvider<SelectedSong>(create: (context) => SelectedSong()),
+  ], child: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -53,8 +54,8 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 children: [
                   SideMenu(),
-                  Expanded(
-                    child: Container(),
+                  const Expanded(
+                    child: PlayListScreen(),
                   )
                 ],
               ),

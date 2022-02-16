@@ -22,11 +22,13 @@ class AppTheme {
         fontSize: 35.0,
         fontWeight: FontWeight.w400,
         letterSpacing: 1.0,
+        color: Colors.black54,
         fontFamily: "myfont",
       ),
       headline4: TextStyle(
         fontSize: 25.0,
         fontWeight: FontWeight.w500,
+        color: Colors.black54,
         letterSpacing: 1.0,
         fontFamily: "myfont",
       ),
@@ -55,8 +57,8 @@ class AppTheme {
       secondary: Color(0xFF1DB954),
     ),
     appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.transparent,
-    ),
+        // backgroundColor: Colors.transparent,
+        ),
     iconTheme: const IconThemeData(color: Colors.white),
     textTheme: TextTheme(
       headline2: TextStyle(
