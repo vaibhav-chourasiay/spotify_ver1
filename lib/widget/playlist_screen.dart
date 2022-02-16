@@ -22,39 +22,56 @@ class _PlayListScreenState extends State<PlayListScreen> {
         elevation: 0.0,
         backgroundColor: Colors.transparent,
         leadingWidth: 100.0,
-        leading: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            InkWell(
-              onTap: () {},
-              customBorder: const CircleBorder(),
-              child: Ink(
-                padding: const EdgeInsets.all(3.0),
-                decoration: BoxDecoration(
-                  color: context.watch<ThemeChanger>().darktheme
-                      ? Colors.white.withOpacity(0.3)
-                      : Colors.black.withOpacity(0.3),
-                  shape: BoxShape.circle,
+        leading: (MediaQuery.of(context).size.width > 600)
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                    onTap: () {},
+                    customBorder: const CircleBorder(),
+                    child: Ink(
+                      padding: const EdgeInsets.all(3.0),
+                      decoration: BoxDecoration(
+                        color: context.watch<ThemeChanger>().darktheme
+                            ? Colors.white.withOpacity(0.3)
+                            : Colors.black.withOpacity(0.3),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.chevron_left),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    customBorder: const CircleBorder(),
+                    child: Ink(
+                      padding: const EdgeInsets.all(3.0),
+                      decoration: BoxDecoration(
+                        color: context.watch<ThemeChanger>().darktheme
+                            ? Colors.white.withOpacity(0.3)
+                            : Colors.black.withOpacity(0.3),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.chevron_right),
+                    ),
+                  ),
+                ],
+              )
+            : IconButton(
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          alignment: Alignment.centerLeft,
+                          contentPadding: const EdgeInsets.all(0.0),
+                          content: SideMenu(),
+                        );
+                      });
+                },
+                icon: const Icon(
+                  Icons.menu,
                 ),
-                child: const Icon(Icons.chevron_left),
               ),
-            ),
-            InkWell(
-              onTap: () {},
-              customBorder: const CircleBorder(),
-              child: Ink(
-                padding: const EdgeInsets.all(3.0),
-                decoration: BoxDecoration(
-                  color: context.watch<ThemeChanger>().darktheme
-                      ? Colors.white.withOpacity(0.3)
-                      : Colors.black.withOpacity(0.3),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(Icons.chevron_right),
-              ),
-            ),
-          ],
-        ),
         actions: [
           TextButton.icon(
             onPressed: () {},
@@ -101,8 +118,14 @@ class _PlayListScreenState extends State<PlayListScreen> {
               padding:
                   const EdgeInsets.only(top: 90.0, left: 15.0, right: 10.0),
               children: [
+                (MediaQuery.of(context).size.width > 600)
+                    ? const SizedBox.shrink()
+                    : playlistImage(),
                 header(),
-                ListOfSongs(songs: currentPlaylistSongs),
+                Container(
+                  width: double.maxFinite,
+                  child: ListOfSongs(songs: currentPlaylistSongs),
+                ),
               ],
             )),
       ),
@@ -124,60 +147,65 @@ class _headerState extends State<header> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        FittedBox(
-          child: Image.asset(
-            currentplaylist.imageURL,
-            width: 200.0,
-            height: 200.0,
-            fit: BoxFit.cover,
-          ),
-        ),
+        (MediaQuery.of(context).size.width > 600)
+            ? playlistImage()
+            : const SizedBox.shrink(),
         Expanded(
           child: Container(
             padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                FittedBox(
-                  child: Text(
-                    "PLAYLIST",
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
+                Text(
+                  "PLAYLIST",
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
                 const SizedBox(
                   height: 30.0,
                 ),
-                FittedBox(
-                  child: Text(
-                    currentplaylist.name,
-                    style: Theme.of(context).textTheme.headline4!.copyWith(
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontWeight: FontWeight.bold),
-                  ),
+                Text(
+                  currentplaylist.name,
+                  style: Theme.of(context).textTheme.headline4!.copyWith(
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
-                  height: 30.0,
+                  height: 20.0,
                 ),
-                FittedBox(
-                  child: Text(
-                    currentplaylist.description,
-                    style: Theme.of(context).textTheme.bodyText2,
-                  ),
+                Text(
+                  currentplaylist.description,
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
                 const SizedBox(
                   height: 10.0,
                 ),
-                FittedBox(
-                  child: Text(
-                    "created by :- ${currentplaylist.creator} duration :- ${currentplaylist.duration}",
-                    style: Theme.of(context).textTheme.bodyText2,
-                  ),
+                Text(
+                  "created by :- ${currentplaylist.creator} duration :- ${currentplaylist.duration}",
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
               ],
             ),
           ),
         ),
       ],
+    );
+  }
+}
+
+class playlistImage extends StatelessWidget {
+  const playlistImage({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FittedBox(
+      child: Image.asset(
+        currentplaylist.imageURL,
+        width: 200.0,
+        height: 200.0,
+        fit: BoxFit.cover,
+      ),
     );
   }
 }

@@ -53,7 +53,9 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: Row(
                 children: [
-                  SideMenu(),
+                  (MediaQuery.of(context).size.width > 800)
+                      ? SideMenu()
+                      : const SizedBox.shrink(),
                   const Expanded(
                     child: PlayListScreen(),
                   )

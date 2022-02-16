@@ -23,29 +23,42 @@ class _ListOfSongsState extends State<ListOfSongs> {
       ),
       child: DataTable(
         showCheckboxColumn: false,
+        columnSpacing: 10.0,
         columns: [
           DataColumn(
             label: Text(
               "title",
-              style: Theme.of(context).textTheme.bodyText1,
+              style: TextStyle(
+                  fontSize:
+                      (MediaQuery.of(context).size.width < 400) ? 10.0 : 16.0,
+                  color: Theme.of(context).colorScheme.secondary),
             ),
           ),
           DataColumn(
             label: Text(
               "artist",
-              style: Theme.of(context).textTheme.bodyText1,
+              style: TextStyle(
+                  fontSize:
+                      (MediaQuery.of(context).size.width < 400) ? 10.0 : 16.0,
+                  color: Theme.of(context).colorScheme.secondary),
             ),
           ),
           DataColumn(
             label: Text(
               "album",
-              style: Theme.of(context).textTheme.bodyText1,
+              style: TextStyle(
+                  fontSize:
+                      (MediaQuery.of(context).size.width < 400) ? 10.0 : 16.0,
+                  color: Theme.of(context).colorScheme.secondary),
             ),
           ),
           DataColumn(
             label: Text(
               "duration",
-              style: Theme.of(context).textTheme.bodyText1,
+              style: TextStyle(
+                  fontSize:
+                      (MediaQuery.of(context).size.width < 400) ? 10.0 : 16.0,
+                  color: Theme.of(context).colorScheme.secondary),
             ),
           ),
         ],
@@ -75,25 +88,37 @@ class _ListOfSongsState extends State<ListOfSongs> {
         DataCell(
           Text(
             e.title,
-            style: Theme.of(context).textTheme.bodyText2,
+            style: TextStyle(
+                fontSize:
+                    (MediaQuery.of(context).size.width < 400) ? 10.0 : 16.0,
+                overflow: TextOverflow.ellipsis),
           ),
         ),
         DataCell(
           Text(
             e.artist,
-            style: Theme.of(context).textTheme.bodyText2,
+            style: TextStyle(
+                fontSize:
+                    (MediaQuery.of(context).size.width < 400) ? 10.0 : 16.0,
+                overflow: TextOverflow.ellipsis),
           ),
         ),
         DataCell(
           Text(
             e.album,
-            style: Theme.of(context).textTheme.bodyText2,
+            style: TextStyle(
+                fontSize:
+                    (MediaQuery.of(context).size.width < 400) ? 10.0 : 16.0,
+                overflow: TextOverflow.ellipsis),
           ),
         ),
         DataCell(
           Text(
             e.duration,
-            style: Theme.of(context).textTheme.bodyText2,
+            style: TextStyle(
+                fontSize:
+                    (MediaQuery.of(context).size.width < 400) ? 10.0 : 16.0,
+                overflow: TextOverflow.ellipsis),
           ),
         ),
       ],
