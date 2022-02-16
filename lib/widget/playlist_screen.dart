@@ -122,6 +122,32 @@ class _PlayListScreenState extends State<PlayListScreen> {
                     ? const SizedBox.shrink()
                     : playlistImage(),
                 header(),
+                const SizedBox(
+                  height: 15.0,
+                ),
+                Row(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                        ),
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.green),
+                      ),
+                      child: Text("PLAY"),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.favorite,
+                      ),
+                    ),
+                  ],
+                ),
                 Container(
                   width: double.maxFinite,
                   child: ListOfSongs(songs: currentPlaylistSongs),
